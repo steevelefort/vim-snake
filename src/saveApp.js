@@ -1,47 +1,48 @@
 import './App.css';
 import { useEffect, useState} from 'react';
+import Grid from './components/Grid';
 import Snake from './components/Snake';
 import Apple from './components/Apple';
 import Startup from './components/Startup';
-import Gameover from './components/Gameover';
-import Walls from './components/Walls';
 
+  const buffer = [];
+  for (let y = 0; y < 20; y++) {
+    const line = [];
+    for (let x = 0; x < 20; x++) {
+      line.push(0); 
+    }
+    buffer.push(line);
+  }
+  console.log(buffer);
+ 
 function App() {
   // let latency = 1000;
   
-  const [walls, setWalls] = useState([]); 
+  const [grid, setGrid] = useState(buffer);
   const [snake, setSnake] = useState([{x:9,y:9}])
   const [currentDirection, setCurrentDirection] = useState(1); 
   const [applePosition, setApplePosition] = useState({x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}) 
   const [gameState, setGameState] = useState(0);
-  const [score, setScore] = useState(0)
   const directions = [
     {x:0,y:-1,className:''},
     {x:+1,y:0,className:'right'},
     {x:0,y:1,className:'bottom'},
     {x:-1,y:0,className:'left'} 
   ]
+  let playing = true;
 
   // This is the control loop
   const gameLoop = () => { 
     if (gameState === 1) {
     const nextPosition = {x:snake[0].x+directions[currentDirection].x, y:snake[0].y+directions[currentDirection].y};
-    if (nextPosition.x>19) setGameState(2);
-    if (nextPosition.x<0) setGameState(2);
-    if (nextPosition.y>19) setGameState(2);
-    if (nextPosition.y<0) setGameState(2);
-    
-    for (const wall of walls) {
-        if (nextPosition.x === wall.x && nextPosition.y === wall.y) {
-          setGameState(2);
-          break;
-        } 
-    }
-      
+    if (nextPosition.x>19) nextPosition.x = 0;
+    if (nextPosition.x<0) nextPosition.x = 19;
+    if (nextPosition.y>19) nextPosition.y = 0;
+    if (nextPosition.y<0) nextPosition.y = 19;
+
     const newSnake = [nextPosition,...snake]; 
+    console.log(nextPosition.x+" === "+ applePosition.x +" && "+ nextPosition.y +" === "+ applePosition.y);
     if (nextPosition.x === applePosition.x && nextPosition.y === applePosition.y) {
-      setWalls([...walls, {...snake[snake.length-1]}]);
-      setScore(score+1); 
       randomApple();
     } else {
       newSnake.pop();
@@ -63,32 +64,10 @@ function App() {
 
   const randomApple = () => { 
     // TODO : Vérifier si la pomme n'est pas sur le serpent !!!
-    const pos = {};
-    let ok = true;
-    do {
-      // On tire une nouvelle position pour la pomme
-      pos.x=Math.floor(Math.random()*20);
-      pos.y=Math.floor(Math.random()*20);
-      // On vérifie si la pomme n'est pas sur le serpent
-      for (const segment of snake) {
-        if (pos.x === segment.x && pos.y === segment.y) {
-          ok = false;
-          break;
-        }
-      }      // On vérifie si la pomme n'est pas sur un mur
-
-      for (const wall of walls) {
-        if (pos.x === wall.x && pos.y === wall.y) {
-          ok = false;
-          break;
-        } 
-      }
-    } while(!ok)
-
-    setApplePosition(pos);
+    setApplePosition({x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)})
   }
-
   const handleKey =  (e) => {
+    console.log(currentDirection);
     switch (e.key.toString().toLowerCase()) {
       case "h":
        if (currentDirection!==1) setCurrentDirection(3);
@@ -102,24 +81,14 @@ function App() {
       case "k":
         if (currentDirection!==2) setCurrentDirection(0);
         break;
-      case "enter":
-        setScore(0);
-        setSnake([{x:9,y:9}]);
-        setWalls([]);
-        setGameState(1);
-        break;
-      default:
-        break;
     }
   }
-    
+
   return ( 
-    <div className="App" tabIndex="0" >
-      <Walls walls={walls}/>
+    <div className="App" tabIndex="0" onKeyDowh={handleKey}>
+      <Grid grid={grid}/>
       <Snake snake={snake} directions={directions} currentDirection={currentDirection}/>
       <Apple position={applePosition} />
-    { gameState === 0 && <Startup/> }
-    { gameState === 2 && <Gameover score={score}/> }
     </div>
   );
 }
