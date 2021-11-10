@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/vim-snake/static/css/main.dead9da5.chunk.css",
+    "main.js": "/vim-snake/static/js/main.5a9c97ef.chunk.js",
+    "main.js.map": "/vim-snake/static/js/main.5a9c97ef.chunk.js.map",
+    "runtime-main.js": "/vim-snake/static/js/runtime-main.ba11196b.js",
+    "runtime-main.js.map": "/vim-snake/static/js/runtime-main.ba11196b.js.map",
+    "static/js/2.0ae95f37.chunk.js": "/vim-snake/static/js/2.0ae95f37.chunk.js",
+    "static/js/2.0ae95f37.chunk.js.map": "/vim-snake/static/js/2.0ae95f37.chunk.js.map",
+    "static/js/3.748e9900.chunk.js": "/vim-snake/static/js/3.748e9900.chunk.js",
+    "static/js/3.748e9900.chunk.js.map": "/vim-snake/static/js/3.748e9900.chunk.js.map",
+    "index.html": "/vim-snake/index.html",
+    "static/css/main.dead9da5.chunk.css.map": "/vim-snake/static/css/main.dead9da5.chunk.css.map",
+    "static/js/2.0ae95f37.chunk.js.LICENSE.txt": "/vim-snake/static/js/2.0ae95f37.chunk.js.LICENSE.txt",
+    "static/media/snake-body-red.55f99bfe.png": "/vim-snake/static/media/snake-body-red.55f99bfe.png",
+    "static/media/snake-head-red.33858e97.png": "/vim-snake/static/media/snake-head-red.33858e97.png",
+    "static/media/wall-shadow.b207f19d.png": "/vim-snake/static/media/wall-shadow.b207f19d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ba11196b.js",
+    "static/js/2.0ae95f37.chunk.js",
+    "static/css/main.dead9da5.chunk.css",
+    "static/js/main.5a9c97ef.chunk.js"
+  ]
+}
