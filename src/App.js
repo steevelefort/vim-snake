@@ -37,6 +37,13 @@ function App() {
           break;
         } 
     }
+
+    for (let i = 1; i<snake.length; i++) {
+        if (nextPosition.x === snake[i].x && nextPosition.y === snake[i].y) {
+          setGameState(2);
+          break;
+        }
+    }
       
     const newSnake = [nextPosition,...snake]; 
     if (nextPosition.x === applePosition.x && nextPosition.y === applePosition.y) {
@@ -118,6 +125,7 @@ function App() {
       <Walls walls={walls}/>
       <Snake snake={snake} directions={directions} currentDirection={currentDirection}/>
       <Apple position={applePosition} />
+      <div className="score">Score : {score}</div>
     { gameState === 0 && <Startup/> }
     { gameState === 2 && <Gameover score={score}/> }
     </div>
